@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Exam_02</h1>
+	
+	<!-- DTO 출력 -->
+	번호 : <span th:text = "${dto.BUN}"></span><br>
+	이름 : <span th:text = "${dto.NAME}"></span><br>
+	성별 : <span th:text = "${dto.GENDER}"></span><br>
+	
+	<hr>
+	
+	<!-- 그룹화 -->
+	<h3 th:object = "${dto}">
+	번호 : <span th:text = "*{BUN}"></span><br>
+	이름 : <span th:text = "*{NAME}"></span><br>
+	성별 : <span th:text = "*{GENDER}"></span><br>
+	</h3>
+	
+	
+</body>
+</html>

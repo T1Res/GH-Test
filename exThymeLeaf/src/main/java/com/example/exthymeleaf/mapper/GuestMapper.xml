@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.exthymeleaf.mapper.GuestMapper">
+	<select id = "guestCount" resultType="int">
+        SELECT COUNT(*) FROM TBL_GUEST
+    </select>
+    
+    <!-- 전체 글수 카운트(검색 O) -->
+	<select id="guestCountSearch" resultType="int">
+		SELECT COUNT(*) FROM TBL_GUEST WHERE
+		<choose>
+			<when test="search=='SUBJECT'">
+				SUBJECT LIKE '%' || #{key} || '%'
+			</when>
+			
+			<when test="search=='NAME'">
+				NAME LIKE '%' || #{key} || '%'
+			</when>
+			
+			<when test="search=='CONTENTS'">
+				CONTENTS LIKE '%' || #{key} || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 전체목록 Page O, 검색 X-->
+	<select id="guestListPage" resultType="com.example.exthymeleaf.domain.GuestDTO">
+		<![CDATA[
+		SELECT X.* FROM (SELECT ROWNUM AS RNUM, A.* FROM  
+	 			(SELECT * FROM TBL_GUEST ORDER BY IDX DESC) A  
+		     				WHERE ROWNUM <= #{endPage}) X WHERE X.RNUM >= #{startPage}
+		]]>
+
+	</select>
+	
+	<!-- 전체목록 Page O, 검색 O-->
+	<select id="guestListPageSearch" resultType="com.example.exthymeleaf.domain.GuestDTO">
+		select X.* from (select rownum as rnum, A.* from  
+	 			(select * from tbl_guest order by idx desc) A where
+	 				<choose>
+						<when test="search=='SUBJECT'">
+							subject like '%' || #{key} || '%'
+						</when>
+						<when test="search=='NAME'">
+							name like '%' || #{key} || '%'
+						</when>
+						<when test="search=='CONTENTS'">
+							contents like '%' || #{key} || '%'
+						</when>
+					</choose>		
+	 				<trim prefix="AND">
+	 					<![CDATA[
+	 						rownum <= #{endPage}) X where
+	 					]]>	
+	 				</trim>
+	 				<choose>
+						<when test="search=='SUBJECT'">
+							subject like '%' || #{key} || '%'
+						</when>
+						<when test="search=='NAME'">
+							name like '%' || #{key} || '%'
+						</when>
+						<when test="search=='CONTENTS'">
+							contents like '%' || #{key} || '%'
+						</when>
+					</choose>		
+	 				<trim prefix="AND">
+	 					<![CDATA[
+	 						X.rnum >= #{startPage}
+	 					]]>	
+	 				</trim>
+	</select>
+
+	<insert id="guestWrite" parameterType="com.example.exthymeleaf.domain.GuestDTO">
+		INSERT INTO TBL_GUEST (IDX, NAME, SUBJECT, CONTENTS, PASS)
+			VALUES (TBL_GUEST_SEQ_IDX.NEXTVAL, #{NAME}, #{SUBJECT}, #{CONTENTS}, #{PASS})
+	</insert>
+
+	<select id="guestView" resultType="com.example.exthymeleaf.domain.GuestDTO">
+		SELECT * FROM TBL_GUEST WHERE IDX = #{IDX}
+	</select>
+	
+	<update id="guestDelete">
+		DELETE FROM TBL_GUEST WHERE IDX = #{IDX}
+	</update>
+
+	<update id="guestModify">
+		UPDATE 
+			TBL_GUEST 
+		SET 
+			SUBJECT = #{SUBJECT}, CONTENTS = #{CONTENTS}
+		WHERE 
+			IDX = #{IDX}
+	</update>
+</mapper>

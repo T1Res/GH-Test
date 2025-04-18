@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Exam_01</h1>
+	
+	<!-- 이렇게 하면 그냥 ${data}로 출력됨 -->
+	<h3>이름 : ${data}</h3> 
+	
+	<br>
+	
+	<!-- 이렇게 th 태그를 사용하면 a태그 안에 ${data}로 출력됨 -->
+	<h3>이름 : <span th:text = "${data}"> </span></h3> 
+	<h3>나이 : <span th:text = "${age}"> </span></h3>
+	
+	<br>
+	
+	
+</body>
+</html>

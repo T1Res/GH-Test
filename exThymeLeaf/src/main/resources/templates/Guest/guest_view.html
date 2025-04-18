@@ -1,0 +1,104 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>방명록 내용 보기</title>
+<link rel="stylesheet" type="text/css" href="/stylesheet.css">
+<style type="text/css">
+td.title {
+	padding: 4px;
+	background-color: #e3e9ff
+}
+
+td.content {
+	padding: 10px;
+	line-height: 1.6em;
+	text-align: justify;
+}
+
+a.list {
+	text-decoration: none;
+	color: black;
+	font-size: 10pt;
+}
+</style>
+</head>
+<body topmargin="0" leftmargin="0">
+	<table border="0" width="800">
+		<tr>
+			<td width="20%" height="500" bgcolor="#ecf1ef" valign="top">
+				<!--  다음에 추가할 부분 -->
+
+			</td>
+			<td width="80%" valign="top">&nbsp;<br>
+				<table border="0" width="90%" align="center">
+					<tr>
+						<td colspan="2"><img src="/img/bullet-01.gif">
+							<font color="blue" size="3">방 명 록</font>
+							<font size="2"> - 글읽기</font>
+						</td>
+					</tr>
+				</table>
+				
+				<p>
+				
+				<table border="0" width="90%" align="center" cellspacing="0" style="border-width: 1px; border-color: #0066cc; border-style: outset;">
+					<tr bgcolor="e3e9ff">
+						<td class="title">
+							<img src="/img/bullet-04.gif">
+							<font size="2" face="돋움" th:text = "${dto.SUBJECT}"></font>
+						</td>
+					</tr>
+					<tr>
+						<td class="content">
+							<p align="right">
+								<font th:text = "| ${dto.NAME} / ${dto.REGDATE} / ${dto.READCNT} |" size="2" face="돋움"></font>
+								<!-- utext : 태그 사용시에 필요 (<br>로 변환했으니 필요) -->
+								<p><span th:utext = "${dto.CONTENTS}"></span><p>
+						</td>
+					</tr>
+				</table> 
+				
+				<!--**** 여기서부터 게시물 내용 아래쪽의 버튼들이 나옵니다. 목록보기, 글쓰기 ****-->
+				<p align="center">
+					<font size="2"> 
+						<!-- 목록보기 --> 
+						<a class = "list" th:href="@{guest_list(page = ${page})}"><img src="/img/list-2.gif" border="0"></a>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp; 
+						
+						<!-- 글쓰기 -->
+						<a class = "list" th:href="@{guest_write(page = ${page})}"><img src="/img/write.jpg" border="0"></a>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp; 
+						
+						<!-- 글수정 -->
+						<a class = "list" th:href="@{guest_modify(IDX = ${dto.IDX}, page = ${page})}"><img src="/img/edit.gif" border="0"></a>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp; 
+						
+						<!-- 글삭제 -->
+						<a class = "list" th:onClick="|javascript:guest_del('${dto.IDX}', '${page}')|"><img src="/img/del.gif" border="0"></a>
+						
+						<!-- 글 삭제 다른 방법 -->
+						<button th:onClick="guest_del2([[${dto.IDX}]],[[${page}]])">[삭제2]</button>
+					</font>
+
+					<!-- 추가할 부분 -->
+			</td>
+		</tr>
+	</table>
+</body>
+<script>
+	function guest_del(IDX, page) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			location.href = "/Guest/guest_delete?IDX=" + IDX + "&page=" + page;
+		}
+	}
+	
+	function guest_del2(IDX, page) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			location.href = "/Guest/guest_delete?IDX=" + IDX + "&page=" + page;
+		}
+	}
+</script>
+</html>

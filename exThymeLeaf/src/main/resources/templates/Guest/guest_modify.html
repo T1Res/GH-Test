@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>방명록 작성</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body topmargin="0" leftmargin="0">
+	<table border="0" width="800">
+		<tr>
+			<td width="20%" height="500" bgcolor="#ecf1ef" valign="top">
+				<!-- 다음에 추가할 부분 -->
+			</td>
+			<td width="80%" valign="top">&nbsp;<br> 
+				<img src="/img/bullet-01.gif">
+				<font size="3" face="돋움" color="blue"><b>방명록</b></font> 
+				<font size="2"> - 글 수정</font>
+				<p>
+				
+				<img src="/img/bullet-03.gif">
+				<font size="2" face="돋움" color="orange"> 잠깐</font> 
+				&nbsp;
+				
+				<img src="/img/bullet-02.gif">
+				<font size="2" face="돋움">는 필수 입력 사항입니다.</font>
+				<p>
+				
+				<!-- dto의 값을 사용하는 오브젝트로 선언 -->
+				<form name = "input" method="post" th:action="@{guest_modify(page=${page})}" th:object="${dto}">
+					<input type="hidden" name="page" th:value="${page}">
+					<!-- 아래와 같이 th:field를 사용하면 name과 value가 같이 자동으로 들어감 -->
+					<input type="hidden" th:field = "*{IDX}">
+					<table border="0">
+						<tr>
+							<td width="5%" align="right"><img src="/img/bullet-02.gif"></td>
+							<td width="15%"><font size="2" face="돋움">글쓴이</font></td>
+							<td width="80%"><input type="text" size="20" th:field = "*{NAME}" readonly></td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">제목</font></td>
+							<!-- th:value로 값을 넣었기에 name 생략 가능 -->
+							<!-- 이때, value를 쓰면 script에서 인식하지 못함, 따라서 field 사용 -->
+							<td><input type="text" size="60" th:field = "*{SUBJECT}"></td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">내용</font></td>
+							<td>
+								<!-- textarea라서 th:text 사용 -->
+								<textarea wrap="physical" rows="10" cols="60" th:field = "*{CONTENTS}"></textarea>
+							</td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">비밀번호</font></td>
+							<td>
+								<input type="password" size="10" name="CHECKPASS">
+								<input type="hidden" th:field = "*{PASS}">
+							</td>
+							
+						</tr>
+						
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td><font size="2">&nbsp;</font></td>
+							<td>
+								<a href="javascript:send()">◀수 정▶</a>&nbsp;&nbsp;&nbsp;
+								<a href="javascript:history.back()">◀취 소▶</a>
+							</td>
+						</tr>
+					</table>
+				</form> <!-- 다음에 추가할 부분 -->
+
+			</td>
+			</td>
+		</tr>
+	</table>
+</body>
+<script>
+	function send() {
+			if (input.NAME.value == "") {
+				alert("이름을 입력하세요.");
+				input.NAME.focus();
+				return;
+			}
+			if (input.SUBJECT.value == "") {
+				alert("제목을 입력하세요.");
+				input.SUBJECT.focus();
+				return;
+			}
+			if (input.CONTENTS.value == "") {
+				alert("내용을 입력하세요.");
+				input.CONTENTS.focus();
+				return;
+			}
+			if (input.CHECKPASS.value == "") {
+				alert("비밀번호를 입력하세요.");
+				input.CHECKPASS.focus();
+				return;
+			}
+			
+			if(input.CHECKPASS.value != "[[${ dto.PASS }]]"){
+				
+				alert("비밀번호가 틀립니다.");
+				input.CHECKPASS.focus();
+				return;
+			}
+			input.submit();
+		}
+</script>
+</html>

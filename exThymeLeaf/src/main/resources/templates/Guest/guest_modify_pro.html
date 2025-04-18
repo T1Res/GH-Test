@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:if = "${ row == 1 }">
+		<script>
+			alert("게시글 수정 성공");
+			// 타임리프 사용한 js에서 값 넘기기
+			location.href = "guest_list?page=[[${ page }]]";
+		</script>
+	</div>
+	
+	<div th:if = "${ row != 1 }">
+		<script>
+			alert("게시글 수정 실패");
+			history.back();
+		</script>
+	</div>
+</body>
+</html>

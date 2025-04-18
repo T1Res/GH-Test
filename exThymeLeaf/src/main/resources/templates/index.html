@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Thymeleaf Project</h1>
+	<!-- ${} : 일반 변수 출력 -->
+	<!-- #{} : 메시지 출력 -->
+	<!-- *{} : DTO 값 출력 -->
+	
+	<a href="/Guest/guest_list">게시판</a><br>
+	<hr>
+	
+	<!-- 타임리프에서 값 넘기는 방법 -->
+	<a th:href="@{/Guest/guest_list(page=1, idx=1)}">값 넘기기</a><br>
+</body>
+</html>

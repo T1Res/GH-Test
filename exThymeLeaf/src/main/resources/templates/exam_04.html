@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Exam_04</h1>
+	<h2>타임리프 비교, 조건 연산</h2>
+	비교 연산자 [ > gt || < lt || >= ge || <= le ]<br>
+	상등 연산자 [ == eq || != ne ]<br>
+	
+	<hr>
+	
+	[ if문 ]<br>
+	<div>
+		<span th:if="${gender==true}">남자</span><br>
+		<span th:if="${gender==false}">여자</span><br>
+	</div>
+	
+	[ if문 - text문 통해 출력하는 방법 ]<br>
+	[ if : 참 / unless : 거짓 ]<br>
+	<div>
+		<span th:text="남자" th:if="${gender==true}"></span><br>
+		<span th:text="여자" th:unless="${gender==true}"></span><br>
+	</div>
+	
+	<hr>
+	
+	[ switch문 : case를 통해 일치하는 값만 출력, else if 같은건 없음 ]<br>
+	<div th:switch="${score}">
+		<span th:case="95">A</span><br>
+		<span th:case="90">B</span><br>
+		<span th:case="85">C</span><br>
+		<span th:case="80">D</span><br>
+		<span th:case="75">E</span><br>
+	</div>
+</body>
+</html>

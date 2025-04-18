@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>방명록 작성</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body topmargin="0" leftmargin="0">
+	<table border="0" width="800">
+		<tr>
+			<td width="20%" height="500" bgcolor="#ecf1ef" valign="top">
+				<!-- 다음에 추가할 부분 -->
+			</td>
+			<td width="80%" valign="top">&nbsp;<br> <img
+				src="/img/bullet-01.gif"><font size="3" face="돋움"
+				color="blue"> <b>방명록</b></font> <font size="2"> - 글쓰기</font>
+			<p>
+					<img src="/img/bullet-03.gif">
+						<font size="2" face="돋움" color="orange"> 잠깐</font> 
+						&nbsp; <img src="/img/bullet-02.gif">
+						<font size="2" face="돋움">는 필수 입력 사항입니다.</font>
+				<p>
+				<form method="post" th:action="@{guest_write(page=${page})}" name="input">
+					<table border="0">
+						<tr>
+							<td width="5%" align="right"><img src="/img/bullet-02.gif"></td>
+							<td width="15%"><font size="2" face="돋움">글쓴이</font></td>
+							<td width="80%"><input type="text" size="20" name="NAME"></td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">제목</font></td>
+							<td><input type="text" size="60" name="SUBJECT"></td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">내용</font></td>
+							<td>
+								<textarea wrap="physical" rows="10" name="CONTENTS" cols="60"></textarea>
+							</td>
+						</tr>
+						
+						<tr>
+							<td align="right"><img src="/img/bullet-02.gif"></td>
+							<td><font size="2" face="돋움">비밀번호</font></td>
+							<td><input type="password" size="10" name="PASS"></td>
+						</tr>
+						
+						<tr>
+							<td align="right">&nbsp;</td>
+							<td><font size="2">&nbsp;</font></td>
+							<td>
+								<a href="javascript:send()">◀등 록▶</a>&nbsp;&nbsp;&nbsp;
+								<a href="javascript:history.back()">◀취 소▶</a>
+							</td>
+						</tr>
+					</table>
+				</form> <!-- 다음에 추가할 부분 -->
+
+			</td>
+			</td>
+		</tr>
+	</table>
+</body>
+<script>
+	function send() {
+			if (document.input.NAME.value == "") {
+				alert("이름을 입력하세요.");
+				document.input.NAME.focus();
+				return;
+			}
+			if (document.input.SUBJECT.value == "") {
+				alert("제목을 입력하세요.");
+				document.input.SUBJECT.focus();
+				return;
+			}
+			if (document.input.CONTENTS.value == "") {
+				alert("내용을 입력하세요.");
+				document.input.CONTENTS.focus();
+				return;
+			}
+			if (document.input.PASS.value == "") {
+				alert("비밀번호를 입력하세요.");
+				document.input.PASS.focus();
+				return;
+			}
+			document.input.submit();
+		}
+</script>
+</html>

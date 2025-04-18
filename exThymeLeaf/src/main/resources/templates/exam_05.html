@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Exam_05</h1>
+	
+	<!-- #lists.size() 함수 사용 -->
+	<h3>총원 : <b th:text = "${#lists.size(list)}"></b></h3>
+	
+	<!-- 값 출력 -->
+	<table border = 1>
+		<tr>
+			<td>번호</td>
+			<td>이름</td>
+			<td>성별</td>
+		</tr>
+        
+        <tr th:each = "dto : ${ list }">
+			<td th:text = "${ dto.BUN }"></td>
+			<td th:text = "${ dto.NAME }"></td>
+			<td th:if = "${ dto.GENDER == true }">남자</td>
+			<td th:if = "${ dto.GENDER == false }">여자</td>
+		</tr>
+	</table>
+	
+	<hr>
+	
+	<!-- GENDER 다른 방식으로 출력 -->
+	<table border = 1>
+		<tr>
+			<td>번호</td>
+			<td>이름</td>
+			<td>성별</td>
+		</tr>
+        
+        <tr th:each="dto : ${list}">
+			<td th:text="${dto.BUN}"></td>
+			<td th:text="${dto.NAME}"></td>
+			<td th:if="${dto.GENDER==true}">남자</td>
+			<!-- <td th:if="${dto.gender!=true}">여자</td>  -->
+			<td th:unless="${dto.GENDER==true}">여자</td>
+		</tr>
+	</table>
+	
+</body>
+</html>

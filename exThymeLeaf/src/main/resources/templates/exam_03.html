@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Exam_03</h1>
+	<h2>타임리프 변수, 문자, 숫자 연산, 문자열 결합</h2>
+	<hr>
+	ID : <span th:text = "${id}"></span><br>
+	이름 : <span th:text = "${name}"></span><br>
+	점수 : <span th:text = "${score}"></span><br>
+	성별 : <span th:text = "${gender}"></span><br>
+	
+	<hr>
+	
+	<!-- 문자열 연결 -->
+	문자열 연결 : <span th:text = "${id} + ${name}"></span><br>
+	
+	<hr>
+	
+	<!-- 문자열 대체 -->
+	문자 대체 : <span th:text = "| 아이디 : ${id}, 이름 : ${name} |"></span><br>
+	<!-- <span th:text = "아이디 : ${id}, 이름 : ${name}"></span>  -->
+	<!-- 이렇게 하면 오류 발생, | 를 사용해 묶어줘야함 -->
+	
+	<hr>
+	
+	<!-- 숫자 연산 -->
+	사칙연산<br>
+	<span th:text = "| [ score : ${score} ] |"></span><br>
+	(+ 10) : <span th:text = "${score + 10}"></span><br>
+    (- 10) : <span th:text = "${score - 10}"></span><br>
+    (* 10) : <span th:text = "${score * 10}"></span><br>
+    (/ 10 : <span th:text = "${score / 10}"></span><br>
+    
+	<hr>
+	
+	<!-- 논리 연산 -->
+	논리연산(and, or, not)<br>
+	<!-- score = 95, gender = false -->
+	and : <span th:text="${score} > 90 and ${score} < 100"></span><br>
+	or : <span th:text="${score} > 90 or ${gender} == true"></span><br><br>
+	
+	not : <span th:text="${score} > 90"></span><br>
+	not : <span th:text="!(${score} > 90)"></span><br>
+	not : <span th:text="not(${score} > 90)"></span><br>
+</body>
+</html>
